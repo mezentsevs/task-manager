@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\Role as RoleEnum;
+use App\Models\Role as RoleModel;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -29,12 +31,12 @@ class User extends Authenticatable
 
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(RoleModel::class);
     }
 
-    public function hasRole(string $role): bool
+    public function hasRole(RoleEnum $role): bool
     {
-        return $this->roles->contains('name', $role);
+        return $this->roles->contains('name', $role->value);
     }
 
     public function tasks(): HasMany
