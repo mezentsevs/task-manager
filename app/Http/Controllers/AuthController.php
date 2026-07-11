@@ -31,7 +31,7 @@ class AuthController extends Controller
         return response()->json([
             'token' => $user->createToken('auth_token')->plainTextToken,
             'user' => $user,
-        ], 201);
+        ]);
     }
 
     public function login(LoginRequest $request): JsonResponse

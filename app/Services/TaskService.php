@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Dtos\CreateTaskDto;
-use App\Dtos\UpdateTaskDto;
+use App\Dtos\TaskStoreDto;
+use App\Dtos\TaskUpdateDto;
 use App\Enums\Role;
 use App\Models\Task;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -35,7 +35,7 @@ class TaskService
         return $query->paginate(10);
     }
 
-    public function store(CreateTaskDto $dto): Task
+    public function store(TaskStoreDto $dto): Task
     {
         return Task::create([
             'user_id' => auth()->id(),
@@ -46,7 +46,7 @@ class TaskService
         ]);
     }
 
-    public function update(Task $task, UpdateTaskDto $dto): Task
+    public function update(Task $task, TaskUpdateDto $dto): Task
     {
         $task->update([
             'title' => $dto->title,
