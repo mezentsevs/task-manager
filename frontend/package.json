@@ -1,7 +1,16 @@
 {
-  "name": "frontend",
-  "type": "module",
+  "name": "mezentsevs/task-manager",
   "private": true,
+  "type": "module",
+  "description": "Task manager",
+  "keywords": [
+    "nuxt",
+    "vue",
+    "framework",
+    "task",
+    "manager"
+  ],
+  "license": "MIT",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
