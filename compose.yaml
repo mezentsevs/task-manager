@@ -9,7 +9,6 @@ services:
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '${APP_PORT:-80}:80'
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
@@ -22,6 +21,38 @@ services:
         networks:
             - sail
         depends_on: {}
+
+    nuxt:
+        image: 'node:20-alpine'
+        working_dir: /var/www/html/frontend
+        environment:
+            HOST: 0.0.0.0
+        volumes:
+            - '.:/var/www/html'
+            - 'nuxt_node_modules:/var/www/html/frontend/node_modules'
+        ports:
+            - '3000:3000'
+        command: sh -c "npm install && npm run dev"
+        networks:
+            - sail
+        depends_on:
+            - laravel.test
+
+    nginx:
+        image: 'nginx:alpine'
+        ports:
+            - '${APP_PORT:-80}:80'
+        volumes:
+            - './docker/nginx/default.conf:/etc/nginx/conf.d/default.conf'
+        networks:
+            - sail
+        depends_on:
+            - laravel.test
+            - nuxt
+
 networks:
     sail:
         driver: bridge
+
+volumes:
+    nuxt_node_modules:
