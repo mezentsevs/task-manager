@@ -37,7 +37,10 @@ class TaskController extends Controller
         ]);
         $task = $this->taskService->store($dto);
 
-        return response()->json($task);
+        return response()->json([
+            'message' => 'Task created successfully.',
+            'task' => $task,
+        ], 201);
     }
 
     public function show(TaskShowRequest $request, Task $task): JsonResponse
@@ -55,13 +58,16 @@ class TaskController extends Controller
         ]);
         $task = $this->taskService->update($task, $dto);
 
-        return response()->json($task);
+        return response()->json([
+            'message' => 'Task updated successfully.',
+            'task' => $task,
+        ]);
     }
 
     public function destroy(TaskDeleteRequest $request, Task $task): JsonResponse
     {
         $this->taskService->delete($task);
 
-        return response()->json(null);
+        return response()->json(['message' => 'Task deleted successfully.']);
     }
 }

@@ -29,21 +29,23 @@ class AuthController extends Controller
         ]);
 
         return response()->json([
+            'message' => 'User registered successfully.',
             'token' => $user->createToken('auth_token')->plainTextToken,
             'user' => $user,
-        ]);
+        ], 201);
     }
 
     public function login(LoginRequest $request): JsonResponse
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json(['message' => 'Invalid credentials.'], 401);
         }
 
         /** @var User $user */
         $user = Auth::user();
 
         return response()->json([
+            'message' => 'Logged in successfully.',
             'token' => $user->createToken('auth_token')->plainTextToken,
             'user' => $user,
         ]);
@@ -57,6 +59,6 @@ class AuthController extends Controller
         $user->tokens()->delete();
         Auth::forgetGuards();
 
-        return response()->json(['message' => 'Logged out']);
+        return response()->json(['message' => 'Logged out successfully.']);
     }
 }
