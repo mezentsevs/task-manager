@@ -29,7 +29,12 @@ class TaskController extends Controller
 
     public function store(TaskStoreRequest $request): JsonResponse
     {
-        $dto = TaskStoreDto::fromArray($request->validated());
+        $dto = TaskStoreDto::fromArray([
+            'title' => $request->validated('title'),
+            'description' => $request->validated('description'),
+            'dueDate' => $request->validated('due_date'),
+            'status' => $request->validated('status'),
+        ]);
         $task = $this->taskService->store($dto);
 
         return response()->json($task);
@@ -42,7 +47,12 @@ class TaskController extends Controller
 
     public function update(TaskUpdateRequest $request, Task $task): JsonResponse
     {
-        $dto = TaskUpdateDto::fromArray($request->validated());
+        $dto = TaskUpdateDto::fromArray([
+            'title' => $request->validated('title'),
+            'description' => $request->validated('description'),
+            'dueDate' => $request->validated('due_date'),
+            'status' => $request->validated('status'),
+        ]);
         $task = $this->taskService->update($task, $dto);
 
         return response()->json($task);
