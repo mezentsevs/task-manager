@@ -1,9 +1,11 @@
 <template>
     <div class="min-h-screen bg-gray-100 pt-20 pb-8 dark:bg-gray-900">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div class="mb-6 flex items-center justify-between">
+            <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <Heading :level="1" class="text-3xl">Tasks</Heading>
-                <PrimaryButton @click="openCreateModal">Add Task</PrimaryButton>
+                <PrimaryButton class="w-full sm:w-40" @click="openCreateModal">
+                    Add Task
+                </PrimaryButton>
             </div>
 
             <div class="mb-4 flex flex-col gap-4 sm:flex-row">
@@ -14,7 +16,7 @@
                     @input="onSearchInput" />
                 <select
                     v-model="statusFilter"
-                    class="w-full sm:w-auto border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 rounded-md px-3 py-2 shadow-sm"
+                    class="w-full sm:w-40 px-3 py-2 pr-8 border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 rounded-md shadow-sm"
                     @change="() => fetchTasks()">
                     <option value="">All statuses</option>
                     <option value="pending">Pending</option>
