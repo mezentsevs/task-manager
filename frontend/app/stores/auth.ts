@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
-import { purgeToken } from '~/helpers/TokenHelper';
 import axios from 'axios';
+
+import { purgeToken } from '~/helpers/TokenHelper';
 import type { AuthStateToken, AuthStateUser } from '~/types/AuthTypes';
 
 interface AuthState {
-    user: AuthStateUser;
+    user: (AuthStateUser & { roles?: string[] }) | null;
     token: AuthStateToken;
 }
 
@@ -15,8 +16,7 @@ export const useAuthStore = defineStore('auth', {
     }),
     actions: {
         async fetchMe(): Promise<void> {
-            const response = await axios.get<{ user: AuthStateUser }>('/me');
-
+            const response = await axios.get<{ user: AuthStateUser & { roles?: string[] } }>('/me');
             if (response.data?.user) {
                 this.user = response.data.user;
             }
@@ -24,9 +24,8 @@ export const useAuthStore = defineStore('auth', {
         async login(email: string, password: string): Promise<void> {
             const response = await axios.post<{
                 token: AuthStateToken;
-                user: AuthStateUser;
+                user: AuthStateUser & { roles?: string[] };
             }>('/login', { email, password });
-
             if (response.data?.token && response.data?.user) {
                 this.token = response.data.token;
                 this.user = response.data.user;
@@ -40,14 +39,13 @@ export const useAuthStore = defineStore('auth', {
         ): Promise<void> {
             const response = await axios.post<{
                 token: AuthStateToken;
-                user: AuthStateUser;
+                user: AuthStateUser & { roles?: string[] };
             }>('/register', {
                 name,
                 email,
                 password,
                 password_confirmation: passwordConfirmation,
             });
-
             if (response.data?.token && response.data?.user) {
                 this.token = response.data.token;
                 this.user = response.data.user;
