@@ -82,7 +82,7 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                                {{ task.due_date ?? '—' }}
+                                {{ toDateInputFormat(task.due_date) || '-' }}
                             </td>
                             <td class="px-6 py-4 text-sm">
                                 <div class="flex gap-2">
@@ -130,6 +130,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
+import { toDateInputFormat } from '~/helpers/DateHelper';
 import { useAuthStore } from '~/stores/auth';
 import { useRouter } from 'vue-router';
 import { useTaskStore } from '~/stores/tasks';
