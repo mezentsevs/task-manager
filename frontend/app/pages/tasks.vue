@@ -119,7 +119,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/stores/auth';
 import { useRouter } from 'vue-router';
@@ -130,10 +130,6 @@ import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
 import TaskModal from '~/components/tasks/TaskModal.vue';
 
 import type { Task, TaskFilters } from '~/types/TaskTypes';
-
-definePageMeta({
-    middleware: 'auth',
-});
 
 const taskStore = useTaskStore();
 const authStore = useAuthStore();
