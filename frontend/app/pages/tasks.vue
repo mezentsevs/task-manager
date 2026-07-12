@@ -2,7 +2,15 @@
     <div class="min-h-screen bg-gray-100 pt-20 pb-8 dark:bg-gray-900">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <Heading :level="1" class="text-3xl">Tasks</Heading>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+                        @click="router.push('/')">
+                        <ArrowLeftIcon class="h-4 w-4" />
+                        Back
+                    </button>
+                    <Heading :level="1" class="text-3xl">Tasks</Heading>
+                </div>
                 <PrimaryButton class="w-full sm:w-40" @click="openCreateModal">
                     Add Task
                 </PrimaryButton>
@@ -123,7 +131,9 @@
 import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/stores/auth';
+import { useRouter } from 'vue-router';
 import { useTaskStore } from '~/stores/tasks';
+import ArrowLeftIcon from '~/components/icons/ArrowLeftIcon.vue';
 import Heading from '~/components/uikit/headings/Heading.vue';
 import Input from '~/components/uikit/inputs/Input.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
@@ -133,6 +143,7 @@ import type { Task, TaskFilters } from '~/types/TaskTypes';
 
 const taskStore = useTaskStore();
 const authStore = useAuthStore();
+const router = useRouter();
 
 const { tasks, meta, loading, error } = storeToRefs(taskStore);
 
