@@ -16,7 +16,7 @@
                 <select
                     v-model="statusFilter"
                     class="border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 rounded-md px-3 py-2 shadow-sm"
-                    @change="fetchTasks">
+                    @change="() => fetchTasks()">
                     <option value="">All statuses</option>
                     <option value="pending">Pending</option>
                     <option value="in_progress">In Progress</option>
