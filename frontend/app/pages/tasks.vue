@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-gray-100 py-8 dark:bg-gray-900">
+    <div class="min-h-screen bg-gray-100 pt-20 pb-8 dark:bg-gray-900">
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div class="mb-6 flex items-center justify-between">
                 <Heading :level="1" class="text-3xl">Tasks</Heading>
