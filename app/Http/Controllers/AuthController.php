@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\LogoutRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -28,10 +29,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->rolesRelation()->attach(Role::where('name', 'user')->first());
+
         return response()->json([
             'message' => 'User registered successfully.',
             'token' => $user->createToken('auth_token')->plainTextToken,
-            'user' => $user,
+            'user' => $user->fresh(),
         ], 201);
     }
 

@@ -21,6 +21,8 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
 
+    protected $appends = ['roles'];
+
     protected function casts(): array
     {
         return [
@@ -29,14 +31,19 @@ class User extends Authenticatable
         ];
     }
 
-    public function roles(): BelongsToMany
+    public function rolesRelation(): BelongsToMany
     {
         return $this->belongsToMany(RoleModel::class);
     }
 
+    public function getRolesAttribute(): array
+    {
+        return $this->rolesRelation()->pluck('name')->toArray();
+    }
+
     public function hasRole(RoleEnum $role): bool
     {
-        return $this->roles->contains('name', $role->value);
+        return in_array($role->value, $this->roles, true);
     }
 
     public function tasks(): HasMany

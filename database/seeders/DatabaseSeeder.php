@@ -25,13 +25,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
         ]);
-        $admin->roles()->attach($adminRole);
+        $admin->rolesRelation()->attach($adminRole);
 
         $user = User::create([
             'name' => 'User',
             'email' => 'user@example.com',
             'password' => Hash::make('password'),
         ]);
-        $user->roles()->attach($userRole);
+        $user->rolesRelation()->attach($userRole);
     }
 }
