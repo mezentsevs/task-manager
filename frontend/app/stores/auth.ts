@@ -1,7 +1,6 @@
-import axios from 'axios';
-
 import { defineStore } from 'pinia';
-
+import { purgeToken } from '~/helpers/TokenHelper';
+import axios from 'axios';
 import type { AuthStateToken, AuthStateUser } from '~/types/AuthTypes';
 
 interface AuthState {
@@ -55,10 +54,15 @@ export const useAuthStore = defineStore('auth', {
             }
         },
         async logout(): Promise<void> {
-            await axios.post('/logout');
-
-            this.token = null;
-            this.user = null;
+            try {
+                await axios.post('/logout');
+            } catch {
+                // ignore error, consider session already closed
+            } finally {
+                this.token = null;
+                this.user = null;
+                purgeToken();
+            }
         },
     },
 });
