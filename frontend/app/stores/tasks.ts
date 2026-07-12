@@ -51,7 +51,7 @@ export const useTaskStore = defineStore('task', {
                     per_page: response.data.per_page,
                     total: response.data.total,
                 };
-            } catch (err) {
+            } catch {
                 this.error = 'Failed to load tasks';
             } finally {
                 this.loading = false;
@@ -71,7 +71,7 @@ export const useTaskStore = defineStore('task', {
                 );
                 this.tasks.push(response.data.task);
                 return response.data.task;
-            } catch (err) {
+            } catch {
                 this.error = 'Failed to create task';
                 return null;
             }
@@ -96,7 +96,7 @@ export const useTaskStore = defineStore('task', {
                     this.tasks[index] = response.data.task;
                 }
                 return response.data.task;
-            } catch (err) {
+            } catch {
                 this.error = 'Failed to update task';
                 return null;
             }
@@ -107,7 +107,7 @@ export const useTaskStore = defineStore('task', {
                 await axios.delete(`/tasks/${taskId}`);
                 this.tasks = this.tasks.filter(t => t.id !== taskId);
                 return true;
-            } catch (err) {
+            } catch {
                 this.error = 'Failed to delete task';
                 return false;
             }
