@@ -7,15 +7,14 @@
             </div>
 
             <div class="mb-4 flex flex-col gap-4 sm:flex-row">
-                <div class="flex-1">
-                    <Input
-                        v-model="searchQuery"
-                        placeholder="Search tasks..."
-                        @input="onSearchInput" />
-                </div>
+                <Input
+                    v-model="searchQuery"
+                    placeholder="Search tasks..."
+                    class="w-full sm:flex-1"
+                    @input="onSearchInput" />
                 <select
                     v-model="statusFilter"
-                    class="border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 rounded-md px-3 py-2 shadow-sm"
+                    class="w-full sm:w-auto border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 rounded-md px-3 py-2 shadow-sm"
                     @change="() => fetchTasks()">
                     <option value="">All statuses</option>
                     <option value="pending">Pending</option>
