@@ -191,11 +191,15 @@ const goToPage = (page: number): void => {
 };
 
 const canEdit = (task: Task): boolean => {
-    return authStore.user?.id === task.user_id || authStore.user?.roles?.includes('admin');
+    return (
+        authStore.user?.id === task.user_id || (authStore.user?.roles?.includes('admin') ?? false)
+    );
 };
 
 const canDelete = (task: Task): boolean => {
-    return authStore.user?.id === task.user_id || authStore.user?.roles?.includes('admin');
+    return (
+        authStore.user?.id === task.user_id || (authStore.user?.roles?.includes('admin') ?? false)
+    );
 };
 
 const statusClass = (status: string): string => {
