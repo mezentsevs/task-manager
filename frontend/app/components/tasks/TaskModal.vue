@@ -36,6 +36,7 @@
 
 <script setup lang="ts">
 import { reactive, computed } from 'vue';
+import { toDateInputFormat } from '~/helpers/DateHelper';
 import Input from '~/components/uikit/inputs/Input.vue';
 import InputLabel from '~/components/uikit/inputs/partials/InputLabel.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
@@ -61,7 +62,7 @@ const form = reactive<{
 }>({
     title: props.task?.title ?? '',
     description: props.task?.description ?? '',
-    due_date: props.task?.due_date ?? '',
+    due_date: toDateInputFormat(props.task?.due_date),
     status: props.task?.status ?? 'pending',
 });
 
