@@ -4,11 +4,11 @@
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="1.5"
+        stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round">
-        <path d="M6 4h12" />
-        <path d="M12 4v16" />
-        <path d="M5 20v-16l3.5 8 3.5 -8v16" />
+        <path d="M3 5h8" />
+        <path d="M7 5v14" />
+        <path d="M11 19V8l4 7 4-7v11" />
     </svg>
 </template>
