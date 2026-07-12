@@ -122,7 +122,6 @@
 import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/stores/auth';
-import { useRouter } from 'vue-router';
 import { useTaskStore } from '~/stores/tasks';
 import Heading from '~/components/uikit/headings/Heading.vue';
 import Input from '~/components/uikit/inputs/Input.vue';
@@ -133,7 +132,6 @@ import type { Task, TaskFilters } from '~/types/TaskTypes';
 
 const taskStore = useTaskStore();
 const authStore = useAuthStore();
-const router = useRouter();
 
 const { tasks, meta, loading, error } = storeToRefs(taskStore);
 
