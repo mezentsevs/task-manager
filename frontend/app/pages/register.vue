@@ -9,7 +9,13 @@
         <Heading :level="1" class="mb-6 text-center text-2xl">Register</Heading>
         <form @submit.prevent="handleRegister">
             <InputLabel for="name" value="Name" />
-            <Input id="name" v-model="form.name" class="mb-4 w-full" required autocomplete="on" />
+            <Input
+                id="name"
+                v-model="form.name"
+                v-focus
+                class="mb-4 w-full"
+                required
+                autocomplete="on" />
             <InputLabel for="email" value="Email" />
             <Input
                 id="email"
@@ -55,6 +61,10 @@ import InputLabel from '~/components/uikit/inputs/partials/InputLabel.vue';
 import LogoIcon from '~/components/icons/LogoIcon.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
 import PrimaryRouterLink from '~/components/uikit/links/PrimaryRouterLink.vue';
+
+const vFocus = {
+    mounted: (el: HTMLElement) => el.focus(),
+};
 
 const authStore = useAuthStore();
 const router = useRouter();

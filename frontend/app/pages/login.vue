@@ -12,6 +12,7 @@
             <Input
                 id="email"
                 v-model="form.email"
+                v-focus
                 type="email"
                 class="mb-4 w-full"
                 required
@@ -46,6 +47,10 @@ import InputLabel from '~/components/uikit/inputs/partials/InputLabel.vue';
 import LogoIcon from '~/components/icons/LogoIcon.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
 import PrimaryRouterLink from '~/components/uikit/links/PrimaryRouterLink.vue';
+
+const vFocus = {
+    mounted: (el: HTMLElement) => el.focus(),
+};
 
 const authStore = useAuthStore();
 const router = useRouter();
