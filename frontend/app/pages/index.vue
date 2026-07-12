@@ -1,11 +1,6 @@
 <template>
     <div
         class="flex min-h-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
-        <div class="fixed right-4 top-4 z-50 flex items-center gap-2">
-            <UserBadge v-if="userName" :name="userName" />
-            <ThemeToggle />
-        </div>
-
         <div class="text-center">
             <LogoIcon class="w-12 h-12 mx-auto mb-4 text-blue-500 dark:text-blue-600" />
             <Heading :level="1" class="mb-2 text-4xl">{{ APP_NAME }}</Heading>
@@ -27,8 +22,6 @@ import { useRouter } from 'vue-router';
 import Heading from '~/components/uikit/headings/Heading.vue';
 import LogoIcon from '~/components/icons/LogoIcon.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
-import ThemeToggle from '~/components/uikit/toggles/ThemeToggle.vue';
-import UserBadge from '~/components/uikit/badges/UserBadge.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
