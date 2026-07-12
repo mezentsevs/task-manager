@@ -1,5 +1,5 @@
 <template>
-    <BaseCard class="w-80">
+    <BaseCard>
         <template #base-logo>
             <slot name="logo" />
         </template>
