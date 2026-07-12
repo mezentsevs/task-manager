@@ -120,13 +120,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from 'vue';
-import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import { useTaskStore } from '~/stores/taskStore';
 import { useAuthStore } from '~/stores/auth';
+import { useRouter } from 'vue-router';
+import { useTaskStore } from '~/stores/tasks';
 import Heading from '~/components/uikit/headings/Heading.vue';
-import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
 import Input from '~/components/uikit/inputs/Input.vue';
+import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
 import TaskModal from '~/components/tasks/TaskModal.vue';
 
 import type { Task, TaskFilters } from '~/types/TaskTypes';
