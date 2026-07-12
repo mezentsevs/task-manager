@@ -65,6 +65,10 @@ const form = reactive<{
     status: props.task?.status ?? 'pending',
 });
 
+const vFocus = {
+    mounted: (el: HTMLElement) => el.focus(),
+};
+
 const handleSubmit = (): void => {
     emit('save', {
         title: form.title,
