@@ -15,7 +15,6 @@
 
 <script setup lang="ts">
 import { APP_NAME, APP_SLOGAN } from '~/consts/AppConsts';
-import { computed } from 'vue';
 import { useAuthStore } from '~/stores/auth';
 import { useRouter } from 'vue-router';
 import Heading from '~/components/uikit/headings/Heading.vue';
@@ -24,8 +23,6 @@ import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
-
-const userName = computed<string>((): string => authStore.user?.name ?? '');
 
 const goToTasks = (): void => {
     router.push('/tasks');
