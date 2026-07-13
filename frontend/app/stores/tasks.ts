@@ -8,10 +8,9 @@ interface TaskState {
     meta: TaskPaginationMeta;
     loading: boolean;
     error: string | null;
-    currentTask: Task | null;
 }
 
-export const useTaskStore = defineStore('task', {
+export const useTaskStore = defineStore('tasks', {
     state: (): TaskState => ({
         tasks: [],
         meta: {
@@ -22,7 +21,6 @@ export const useTaskStore = defineStore('task', {
         },
         loading: false,
         error: null,
-        currentTask: null,
     }),
     actions: {
         async fetchTasks(filters: TaskFilters = {}): Promise<void> {
@@ -111,9 +109,6 @@ export const useTaskStore = defineStore('task', {
                 this.error = 'Failed to delete task';
                 return false;
             }
-        },
-        setCurrentTask(task: Task | null): void {
-            this.currentTask = task;
         },
     },
 });
