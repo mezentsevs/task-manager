@@ -21,12 +21,7 @@
                     <option value="completed">Completed</option>
                 </select>
                 <div class="flex justify-end gap-2">
-                    <button
-                        type="button"
-                        class="border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-300 rounded-md border px-4 py-2"
-                        @click="$emit('close')">
-                        Cancel
-                    </button>
+                    <SecondaryButton type="button" @click="$emit('close')">Cancel</SecondaryButton>
                     <PrimaryButton type="submit">Save</PrimaryButton>
                 </div>
             </form>
@@ -41,6 +36,7 @@ import Heading from '~/components/uikit/headings/Heading.vue';
 import Input from '~/components/uikit/inputs/Input.vue';
 import InputLabel from '~/components/uikit/inputs/partials/InputLabel.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
+import SecondaryButton from '~/components/uikit/buttons/SecondaryButton.vue';
 
 import type { Task } from '~/types/TaskTypes';
 

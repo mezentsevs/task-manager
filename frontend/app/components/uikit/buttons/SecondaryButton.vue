@@ -1,7 +1,7 @@
 <template>
     <BaseButton
         :type
-        class="border-transparent bg-blue-500 dark:bg-gray-200 text-white dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 shadow-sm">
+        class="border-gray-300 dark:border-gray-500 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 shadow-sm">
         <slot />
     </BaseButton>
 </template>
@@ -16,7 +16,7 @@ withDefaults(
         type?: UikitButton;
     }>(),
     {
-        type: Button.Submit,
+        type: Button.Button,
     },
 );
 </script>
