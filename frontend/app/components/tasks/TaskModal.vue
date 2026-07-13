@@ -1,9 +1,9 @@
 <template>
     <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
         <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
-            <h2 class="mb-4 text-xl font-bold text-gray-800 dark:text-gray-100">
+            <Heading :level="2" class="text-xl mb-4">
                 {{ isEditing ? 'Edit Task' : 'New Task' }}
-            </h2>
+            </Heading>
             <form @submit.prevent="handleSubmit">
                 <InputLabel for="title" value="Title" />
                 <Input id="title" v-model="form.title" v-focus class="mb-4 w-full" required />
@@ -37,6 +37,7 @@
 <script setup lang="ts">
 import { reactive, computed } from 'vue';
 import { toDateInputFormat } from '~/helpers/DateHelper';
+import Heading from '~/components/uikit/headings/Heading.vue';
 import Input from '~/components/uikit/inputs/Input.vue';
 import InputLabel from '~/components/uikit/inputs/partials/InputLabel.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
