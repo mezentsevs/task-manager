@@ -21,8 +21,7 @@
                 @input="debouncedSearch" />
             <select
                 v-model="statusFilter"
-                class="w-full sm:w-40 px-3 py-2 pr-8 border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 rounded-md shadow-sm"
-                @change="() => fetchTasks()">
+                class="w-full sm:w-40 px-3 py-2 pr-8 border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 rounded-md shadow-sm">
                 <option value="">All statuses</option>
                 <option value="pending">Pending</option>
                 <option value="in_progress">In Progress</option>
@@ -122,12 +121,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { toDateInputFormat } from '~/helpers/DateHelper';
 import { useAuthStore } from '~/stores/auth';
 import { useDebounce } from '~/composables/useDebounce';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useTaskStore } from '~/stores/tasks';
 import ArrowLeftIcon from '~/components/icons/ArrowLeftIcon.vue';
 import Heading from '~/components/uikit/headings/Heading.vue';
@@ -140,11 +139,14 @@ import type { Task, TaskFilters } from '~/types/TaskTypes';
 const taskStore = useTaskStore();
 const authStore = useAuthStore();
 const router = useRouter();
+const route = useRoute();
 
 const { tasks, meta, loading, error } = storeToRefs(taskStore);
 
-const searchQuery = ref<string>('');
-const statusFilter = ref<TaskFilters['status']>('');
+const searchQuery = ref<string>((route.query.search as string) || '');
+const statusFilter = ref<TaskFilters['status']>(
+    (route.query.status as TaskFilters['status']) || '',
+);
 const showModal = ref<boolean>(false);
 const editingTask = ref<Task | null>(null);
 
@@ -160,6 +162,22 @@ const fetchTasks = async (page?: number): Promise<void> => {
 const debouncedSearch = useDebounce(() => {
     fetchTasks();
 }, 300);
+
+const syncUrl = (): void => {
+    const query: Record<string, string> = {};
+    if (searchQuery.value) query.search = searchQuery.value;
+    if (statusFilter.value) query.status = statusFilter.value;
+    router.replace({ query });
+};
+
+watch(searchQuery, () => {
+    syncUrl();
+});
+
+watch(statusFilter, () => {
+    syncUrl();
+    fetchTasks();
+});
 
 const openCreateModal = (): void => {
     editingTask.value = null;
