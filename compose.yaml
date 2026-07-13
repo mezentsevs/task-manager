@@ -44,6 +44,7 @@ services:
             - '${APP_PORT:-80}:80'
         volumes:
             - './docker/nginx/default.conf:/etc/nginx/conf.d/default.conf'
+            - './public/docs:/var/www/html/public/docs'
         networks:
             - sail
         depends_on:

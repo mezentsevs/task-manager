@@ -1,0 +1,257 @@
+openapi: 3.0.3
+info:
+  title: 'Task Manager API Documentation'
+  description: ''
+  version: 1.0.0
+servers:
+  - url: 'http://localhost'
+tags:
+  - name: Endpoints
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can get a token by calling <code>POST /api/login</code>.'
+security:
+  -
+    default: []
+paths:
+  /api/register:
+    post:
+      summary: ''
+      operationId: postApiRegister
+      description: ''
+      parameters: []
+      responses: {}
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must match the regex /^[a-zA-Z \-0-9]+$/. Must not be greater than 255 characters.'
+                  example: b
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: zbailey@example.net
+                password:
+                  type: string
+                  description: 'Must match the regex /^[!-~]+$/. Must be at least 8 characters. Must not be greater than 255 characters.'
+                  example: '-0pBNvYgxw'
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/login:
+    post:
+      summary: ''
+      operationId: postApiLogin
+      description: ''
+      parameters: []
+      responses: {}
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: gbailey@example.net
+                password:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: '+-0pBNvYgxwmi/#iw'
+              required:
+                - email
+                - password
+      security: []
+  /api/me:
+    get:
+      summary: ''
+      operationId: getApiMe
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/logout:
+    post:
+      summary: ''
+      operationId: postApiLogout
+      description: ''
+      parameters: []
+      responses: {}
+      tags:
+        - Endpoints
+      security: []
+  /api/tasks:
+    get:
+      summary: ''
+      operationId: getApiTasks
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: ''
+      operationId: postApiTasks
+      description: ''
+      parameters: []
+      responses: {}
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'Must be at least 3 characters. Must not be greater than 255 characters.'
+                  example: b
+                description:
+                  type: string
+                  description: ''
+                  example: 'Eius et animi quos velit et.'
+                  nullable: true
+                due_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-07-13T14:48:47'
+                  nullable: true
+                status:
+                  type: string
+                  description: ''
+                  example: in_progress
+                  enum:
+                    - pending
+                    - in_progress
+                    - completed
+              required:
+                - title
+                - status
+      security: []
+  '/api/tasks/{id}':
+    get:
+      summary: ''
+      operationId: getApiTasksId
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: ''
+      operationId: putApiTasksId
+      description: ''
+      parameters: []
+      responses: {}
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'Must be at least 3 characters. Must not be greater than 255 characters.'
+                  example: b
+                description:
+                  type: string
+                  description: ''
+                  example: 'Eius et animi quos velit et.'
+                  nullable: true
+                due_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2026-07-13T14:48:47'
+                  nullable: true
+                status:
+                  type: string
+                  description: ''
+                  example: completed
+                  enum:
+                    - pending
+                    - in_progress
+                    - completed
+              required:
+                - title
+                - status
+      security: []
+    delete:
+      summary: ''
+      operationId: deleteApiTasksId
+      description: ''
+      parameters: []
+      responses: {}
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the task.'
+        example: 1
+        required: true
+        schema:
+          type: integer

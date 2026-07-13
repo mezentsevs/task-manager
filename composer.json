@@ -19,6 +19,7 @@
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "friendsofphp/php-cs-fixer": "^3.95",
+        "knuckleswtf/scribe": "^5.11",
         "laravel/pail": "^1.2.5",
         "laravel/pao": "^1.0.6",
         "laravel/pint": "^1.27",
@@ -79,7 +80,13 @@
         "fix": "php-cs-fixer fix",
         "fix:diff": "php-cs-fixer fix --diff",
         "code:lint": "composer lint",
-        "code:fix": "composer fix"
+        "code:fix": "composer fix",
+        "openapi:generate": "php artisan scribe:generate"
+    },
+    "scripts-descriptions": {
+        "code:lint": "Code style check without changes",
+        "code:fix": "Automatic code style correction",
+        "openapi:generate": "Generate openapi documentation"
     },
     "extra": {
         "laravel": {
