@@ -18,7 +18,7 @@
                 v-model="searchQuery"
                 placeholder="Search tasks..."
                 class="w-full sm:flex-1"
-                @input="onSearchInput" />
+                @input="debouncedSearch" />
             <select
                 v-model="statusFilter"
                 class="w-full sm:w-40 px-3 py-2 pr-8 border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 rounded-md shadow-sm"
@@ -126,6 +126,7 @@ import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { toDateInputFormat } from '~/helpers/DateHelper';
 import { useAuthStore } from '~/stores/auth';
+import { useDebounce } from '~/composables/useDebounce';
 import { useRouter } from 'vue-router';
 import { useTaskStore } from '~/stores/tasks';
 import ArrowLeftIcon from '~/components/icons/ArrowLeftIcon.vue';
@@ -155,6 +156,10 @@ const fetchTasks = async (page?: number): Promise<void> => {
     };
     await taskStore.fetchTasks(filters);
 };
+
+const debouncedSearch = useDebounce(() => {
+    fetchTasks();
+}, 300);
 
 const openCreateModal = (): void => {
     editingTask.value = null;
@@ -220,11 +225,6 @@ const statusClass = (status: string): string => {
         default:
             return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
     }
-};
-
-const onSearchInput = (): void => {
-    // debounce not implemented yet, simple refresh
-    fetchTasks();
 };
 
 onMounted(() => {
