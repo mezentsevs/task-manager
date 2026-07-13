@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <div class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
         <AppHeader />
-        <NuxtPage />
+        <main class="flex-1 overflow-auto flex items-center justify-center">
+            <NuxtPage />
+        </main>
     </div>
 </template>
 

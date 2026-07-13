@@ -1,6 +1,5 @@
 <template>
-    <div
-        class="flex min-h-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center h-full">
         <div class="text-center">
             <LogoIcon class="w-12 h-12 mx-auto mb-4 text-blue-500 dark:text-blue-600" />
             <Heading :level="1" class="mb-2 text-4xl">{{ APP_NAME }}</Heading>

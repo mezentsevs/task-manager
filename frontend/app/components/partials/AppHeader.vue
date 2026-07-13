@@ -1,8 +1,10 @@
 <template>
-    <div class="fixed right-4 top-4 z-50 flex items-center gap-2">
-        <UserBadge v-if="userName" :name="userName" />
-        <ThemeToggle />
-    </div>
+    <header class="sticky top-0 z-50 h-16 bg-gray-100 dark:bg-gray-900">
+        <div class="flex h-full items-center justify-end px-4">
+            <UserBadge v-if="userName" :name="userName" class="mr-2" />
+            <ThemeToggle />
+        </div>
+    </header>
 </template>
 
 <script setup lang="ts">
@@ -19,7 +21,6 @@ const userName = computed<string>(() => {
     if (route.path === '/login' || route.path === '/register') {
         return '';
     }
-
     return authStore.user?.name ?? '';
 });
 </script>
