@@ -142,7 +142,12 @@
             </nav>
         </div>
 
-        <TaskModal v-if="showModal" :task="editingTask" @close="closeModal" @save="handleSave" />
+        <TaskModal
+            v-if="showModal"
+            :task="editingTask"
+            :server-error="serverError"
+            @close="closeModal"
+            @save="handleSave" />
     </div>
 </template>
 
@@ -178,6 +183,7 @@ const statusFilter = ref<TaskFilters['status']>(
 );
 const showModal = ref<boolean>(false);
 const editingTask = ref<Task | null>(null);
+const serverError = ref<string>('');
 const sortBy = ref<SortField>(SortField.CreatedAt);
 const sortOrder = ref<SortOrder>(SortOrder.Desc);
 
@@ -224,17 +230,20 @@ const toggleSort = (field: SortField): void => {
 
 const openCreateModal = (): void => {
     editingTask.value = null;
+    serverError.value = '';
     showModal.value = true;
 };
 
 const openEditModal = (task: Task): void => {
     editingTask.value = { ...task };
+    serverError.value = '';
     showModal.value = true;
 };
 
 const closeModal = (): void => {
-    showModal.value = false;
     editingTask.value = null;
+    serverError.value = '';
+    showModal.value = false;
 };
 
 const handleSave = async (taskData: {
@@ -243,19 +252,32 @@ const handleSave = async (taskData: {
     due_date?: string;
     status: string;
 }): Promise<void> => {
-    if (editingTask.value) {
-        await taskStore.updateTask(editingTask.value.id, taskData);
-    } else {
-        await taskStore.createTask(taskData);
+    try {
+        if (editingTask.value) {
+            await taskStore.updateTask(editingTask.value.id, taskData);
+        } else {
+            await taskStore.createTask(taskData);
+        }
+        closeModal();
+        await fetchTasks();
+    } catch (err) {
+        if (err instanceof Error) {
+            serverError.value = err.message;
+        }
     }
-    closeModal();
-    await fetchTasks();
 };
 
 const handleDelete = async (taskId: number): Promise<void> => {
-    if (confirm('Are you sure?')) {
+    if (!confirm('Are you sure?')) {
+        return;
+    }
+    try {
         await taskStore.deleteTask(taskId);
         await fetchTasks();
+    } catch (err) {
+        if (err instanceof Error) {
+            alert(err.message);
+        }
     }
 };
 

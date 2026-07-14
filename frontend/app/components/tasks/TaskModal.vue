@@ -4,6 +4,7 @@
             <Heading :level="2" class="text-xl mb-4">
                 {{ isEditing ? 'Edit Task' : 'New Task' }}
             </Heading>
+            <ErrorMessage :message="serverError" />
             <form @submit.prevent="handleSubmit">
                 <InputLabel for="title" value="Title" />
                 <Input id="title" v-model="form.title" v-focus class="mb-4 w-full" required />
@@ -36,6 +37,7 @@
 <script setup lang="ts">
 import { reactive, computed } from 'vue';
 import { toDateInputFormat } from '~/helpers/DateHelper';
+import ErrorMessage from '~/components/uikit/messages/ErrorMessage.vue';
 import Heading from '~/components/uikit/headings/Heading.vue';
 import Input from '~/components/uikit/inputs/Input.vue';
 import InputLabel from '~/components/uikit/inputs/partials/InputLabel.vue';
@@ -46,6 +48,7 @@ import type { Task } from '~/types/TaskTypes';
 
 const props = defineProps<{
     task: Task | null;
+    serverError: string;
 }>();
 
 const emit = defineEmits<{

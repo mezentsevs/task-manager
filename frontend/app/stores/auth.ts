@@ -24,13 +24,20 @@ export const useAuthStore = defineStore('auth', {
             }
         },
         async login(email: string, password: string): Promise<void> {
-            const response = await axios.post<{
-                token: AuthStateToken;
-                user: AuthStateUser & { roles?: string[] };
-            }>('/auth/login', { email, password });
-            if (response.data?.token && response.data?.user) {
-                this.token = response.data.token;
-                this.user = response.data.user;
+            try {
+                const response = await axios.post<{
+                    token: AuthStateToken;
+                    user: AuthStateUser & { roles?: string[] };
+                }>('/auth/login', { email, password });
+                if (response.data?.token && response.data?.user) {
+                    this.token = response.data.token;
+                    this.user = response.data.user;
+                }
+            } catch (err) {
+                if (axios.isAxiosError(err) && err.response?.data?.message) {
+                    throw new Error(err.response.data.message);
+                }
+                throw new Error('Login failed');
             }
         },
         async register(
@@ -39,18 +46,25 @@ export const useAuthStore = defineStore('auth', {
             password: string,
             passwordConfirmation: string,
         ): Promise<void> {
-            const response = await axios.post<{
-                token: AuthStateToken;
-                user: AuthStateUser & { roles?: string[] };
-            }>('/auth/register', {
-                name,
-                email,
-                password,
-                password_confirmation: passwordConfirmation,
-            });
-            if (response.data?.token && response.data?.user) {
-                this.token = response.data.token;
-                this.user = response.data.user;
+            try {
+                const response = await axios.post<{
+                    token: AuthStateToken;
+                    user: AuthStateUser & { roles?: string[] };
+                }>('/auth/register', {
+                    name,
+                    email,
+                    password,
+                    password_confirmation: passwordConfirmation,
+                });
+                if (response.data?.token && response.data?.user) {
+                    this.token = response.data.token;
+                    this.user = response.data.user;
+                }
+            } catch (err) {
+                if (axios.isAxiosError(err) && err.response?.data?.message) {
+                    throw new Error(err.response.data.message);
+                }
+                throw new Error('Registration failed');
             }
         },
         async logout(): Promise<void> {

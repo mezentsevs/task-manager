@@ -64,7 +64,7 @@ const handleLogin = async (): Promise<void> => {
         applyToken(authStore.token);
         await router.push('/');
     } catch (err) {
-        error.value = 'Login failed';
+        error.value = err instanceof Error ? err.message : 'Login failed.';
     }
 };
 </script>

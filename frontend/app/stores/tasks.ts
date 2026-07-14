@@ -60,8 +60,7 @@ export const useTaskStore = defineStore('tasks', {
             description?: string;
             due_date?: string;
             status: string;
-        }): Promise<Task | null> {
-            this.error = null;
+        }): Promise<Task> {
             try {
                 const response = await axios.post<{ message: string; task: Task }>(
                     '/tasks',
@@ -69,9 +68,11 @@ export const useTaskStore = defineStore('tasks', {
                 );
                 this.tasks.push(response.data.task);
                 return response.data.task;
-            } catch {
-                this.error = 'Failed to create task';
-                return null;
+            } catch (err) {
+                if (axios.isAxiosError(err) && err.response?.data?.message) {
+                    throw new Error(err.response.data.message);
+                }
+                throw new Error('Failed to create task');
             }
         },
         async updateTask(
@@ -82,8 +83,7 @@ export const useTaskStore = defineStore('tasks', {
                 due_date?: string;
                 status: string;
             },
-        ): Promise<Task | null> {
-            this.error = null;
+        ): Promise<Task> {
             try {
                 const response = await axios.put<{ message: string; task: Task }>(
                     `/tasks/${taskId}`,
@@ -94,20 +94,22 @@ export const useTaskStore = defineStore('tasks', {
                     this.tasks[index] = response.data.task;
                 }
                 return response.data.task;
-            } catch {
-                this.error = 'Failed to update task';
-                return null;
+            } catch (err) {
+                if (axios.isAxiosError(err) && err.response?.data?.message) {
+                    throw new Error(err.response.data.message);
+                }
+                throw new Error('Failed to update task');
             }
         },
-        async deleteTask(taskId: number): Promise<boolean> {
-            this.error = null;
+        async deleteTask(taskId: number): Promise<void> {
             try {
                 await axios.delete(`/tasks/${taskId}`);
                 this.tasks = this.tasks.filter(t => t.id !== taskId);
-                return true;
-            } catch {
-                this.error = 'Failed to delete task';
-                return false;
+            } catch (err) {
+                if (axios.isAxiosError(err) && err.response?.data?.message) {
+                    throw new Error(err.response.data.message);
+                }
+                throw new Error('Failed to delete task');
             }
         },
     },

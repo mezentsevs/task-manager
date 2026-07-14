@@ -83,7 +83,7 @@ const handleRegister = async (): Promise<void> => {
         applyToken(authStore.token);
         await router.push('/');
     } catch (err) {
-        error.value = 'Registration failed';
+        error.value = err instanceof Error ? err.message : 'Registration failed.';
     }
 };
 </script>
