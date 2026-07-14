@@ -47,12 +47,38 @@
                             Title
                         </th>
                         <th
-                            class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                            Status
+                            class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300 cursor-pointer select-none"
+                            @click="toggleSort(SortField.Status)">
+                            <div class="flex items-center gap-1">
+                                Status
+                                <SortAscIcon
+                                    v-if="
+                                        sortBy === SortField.Status && sortOrder === SortOrder.Asc
+                                    "
+                                    class="h-4 w-4" />
+                                <SortDescIcon
+                                    v-if="
+                                        sortBy === SortField.Status && sortOrder === SortOrder.Desc
+                                    "
+                                    class="h-4 w-4" />
+                            </div>
                         </th>
                         <th
-                            class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
-                            Due Date
+                            class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300 cursor-pointer select-none"
+                            @click="toggleSort(SortField.DueDate)">
+                            <div class="flex items-center gap-1">
+                                Due Date
+                                <SortAscIcon
+                                    v-if="
+                                        sortBy === SortField.DueDate && sortOrder === SortOrder.Asc
+                                    "
+                                    class="h-4 w-4" />
+                                <SortDescIcon
+                                    v-if="
+                                        sortBy === SortField.DueDate && sortOrder === SortOrder.Desc
+                                    "
+                                    class="h-4 w-4" />
+                            </div>
                         </th>
                         <th
                             class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
@@ -122,6 +148,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue';
+import { SortField, SortOrder } from '~/enums/SortEnums';
 import { storeToRefs } from 'pinia';
 import { toDateInputFormat } from '~/helpers/DateHelper';
 import { useAuthStore } from '~/stores/auth';
@@ -132,6 +159,8 @@ import ArrowLeftIcon from '~/components/icons/ArrowLeftIcon.vue';
 import Heading from '~/components/uikit/headings/Heading.vue';
 import Input from '~/components/uikit/inputs/Input.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
+import SortAscIcon from '~/components/icons/SortAscIcon.vue';
+import SortDescIcon from '~/components/icons/SortDescIcon.vue';
 import TaskModal from '~/components/tasks/TaskModal.vue';
 
 import type { Task, TaskFilters } from '~/types/TaskTypes';
@@ -149,11 +178,15 @@ const statusFilter = ref<TaskFilters['status']>(
 );
 const showModal = ref<boolean>(false);
 const editingTask = ref<Task | null>(null);
+const sortBy = ref<SortField>(SortField.CreatedAt);
+const sortOrder = ref<SortOrder>(SortOrder.Desc);
 
 const fetchTasks = async (page?: number): Promise<void> => {
     const filters: TaskFilters = {
         search: searchQuery.value || undefined,
         status: statusFilter.value || undefined,
+        sort_by: sortBy.value,
+        order: sortOrder.value,
         page,
     };
     await taskStore.fetchTasks(filters);
@@ -178,6 +211,16 @@ watch(statusFilter, () => {
     syncUrl();
     fetchTasks();
 });
+
+const toggleSort = (field: SortField): void => {
+    if (sortBy.value === field) {
+        sortOrder.value = sortOrder.value === SortOrder.Asc ? SortOrder.Desc : SortOrder.Asc;
+    } else {
+        sortBy.value = field;
+        sortOrder.value = SortOrder.Asc;
+    }
+    fetchTasks();
+};
 
 const openCreateModal = (): void => {
     editingTask.value = null;
