@@ -7,10 +7,13 @@
             <form @submit.prevent="handleSubmit">
                 <InputLabel for="title" value="Title" />
                 <Input id="title" v-model="form.title" v-focus class="mb-4 w-full" required />
+
                 <InputLabel for="description" value="Description" />
                 <Input id="description" v-model="form.description" class="mb-4 w-full" />
+
                 <InputLabel for="due_date" value="Due Date" />
                 <Input id="due_date" v-model="form.due_date" type="date" class="mb-4 w-full" />
+
                 <InputLabel for="status" value="Status" />
                 <select
                     id="status"
@@ -20,6 +23,7 @@
                     <option value="in_progress">In Progress</option>
                     <option value="completed">Completed</option>
                 </select>
+
                 <div class="flex justify-end gap-2">
                     <SecondaryButton type="button" @click="$emit('close')">Cancel</SecondaryButton>
                     <PrimaryButton type="submit">Save</PrimaryButton>
