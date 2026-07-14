@@ -91,7 +91,8 @@
                         v-for="task in tasks"
                         :key="task.id"
                         class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                        <td
+                            class="max-w-xs px-6 py-4 text-sm text-gray-900 dark:text-gray-100 truncate">
                             {{ task.title }}
                         </td>
                         <td class="px-6 py-4 text-sm">
