@@ -1,3 +1,6 @@
+import type { SortOrder } from '~/enums/SortEnums';
+import type { TaskStatus } from '~/enums/TaskEnums';
+
 export interface Task {
     id: number;
     user_id: number;
@@ -9,13 +12,11 @@ export interface Task {
     updated_at: string;
 }
 
-export type TaskStatus = 'pending' | 'in_progress' | 'completed';
-
 export interface TaskFilters {
     status?: TaskStatus | '';
     search?: string;
     sort_by?: string;
-    order?: 'asc' | 'desc';
+    order?: SortOrder;
     page?: number;
 }
 
