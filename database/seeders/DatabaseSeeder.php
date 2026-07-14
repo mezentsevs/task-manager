@@ -33,5 +33,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
         $user->rolesRelation()->attach($userRole);
+
+        $this->call(TaskSeeder::class);
     }
 }

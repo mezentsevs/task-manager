@@ -14,9 +14,7 @@ class TaskService
     {
         $query = Task::query();
 
-        if (auth()->user()->hasRole(Role::Admin)) {
-            // Admin sees all tasks
-        } else {
+        if (!auth()->user()->hasRole(Role::Admin)) {
             $query->where('user_id', auth()->id());
         }
 
@@ -31,6 +29,7 @@ class TaskService
         $sortBy = $filters['sort_by'] ?? 'created_at';
         $order = $filters['order'] ?? 'desc';
         $query->orderBy($sortBy, $order);
+        $query->orderBy('id', 'desc');
 
         return $query->paginate(10);
     }
