@@ -149,6 +149,31 @@ composer openapi:generate
 
 ## Screenshots
 
+<img width="1920" height="1200" alt="2026-07-14_10-10-14" src="https://github.com/user-attachments/assets/7e3dbd15-2a10-4584-8799-1488b359d063" />
+<img width="1920" height="1200" alt="2026-07-14_10-11-13" src="https://github.com/user-attachments/assets/5a06a27a-dade-437d-bed6-8fb3bcc8811f" />
+<img width="1920" height="1200" alt="2026-07-14_10-13-15" src="https://github.com/user-attachments/assets/8a2ed83d-ea42-4362-af3e-934c37d702bf" />
+<img width="1920" height="1200" alt="2026-07-14_10-15-17" src="https://github.com/user-attachments/assets/8123ec71-d716-4873-9879-94355e737ba8" />
+<img width="1920" height="1200" alt="2026-07-14_10-19-23" src="https://github.com/user-attachments/assets/f1fc683d-7871-49fe-aa36-40cbb0b53b52" />
+<img width="1920" height="1200" alt="2026-07-14_10-20-22" src="https://github.com/user-attachments/assets/9f1f35b1-72c3-4f81-a784-91597cc7eb94" />
+<img width="1920" height="1200" alt="2026-07-14_10-24-06" src="https://github.com/user-attachments/assets/ef5d1535-4653-4f77-9460-5268195e7f82" />
+<img width="1920" height="1200" alt="2026-07-14_10-24-59" src="https://github.com/user-attachments/assets/57fa195e-c894-4b0f-b237-fb19435ad346" />
+<img width="1920" height="1200" alt="2026-07-14_10-27-21" src="https://github.com/user-attachments/assets/07cb355f-f314-4587-a728-54a84dbc7487" />
+<img width="1920" height="1200" alt="2026-07-14_10-28-24" src="https://github.com/user-attachments/assets/da32381b-660f-482b-9f99-470368cdec0d" />
+<img width="1920" height="1200" alt="2026-07-14_10-31-57" src="https://github.com/user-attachments/assets/d94459d3-b4cb-4aa4-93ad-7eecb2abe210" />
+<img width="1920" height="1200" alt="2026-07-14_10-32-40" src="https://github.com/user-attachments/assets/d708231d-275b-4b5e-a382-87ce2c07958e" />
+<img width="1920" height="1200" alt="2026-07-14_10-35-24" src="https://github.com/user-attachments/assets/3dcedc50-f07f-41a3-9251-22374026a0c8" />
+<img width="1920" height="1200" alt="2026-07-14_10-36-17" src="https://github.com/user-attachments/assets/01b78ba4-183d-44c0-b1c3-3824e822d426" />
+<img width="1920" height="1200" alt="2026-07-14_10-38-41" src="https://github.com/user-attachments/assets/26e66e2c-c7c2-496e-ac2b-c9a5d0bd0f0b" />
+<img width="1920" height="1200" alt="2026-07-14_10-40-53" src="https://github.com/user-attachments/assets/9bfd05ad-6f1e-4587-95e5-de8dbe8cdc9a" />
+<img width="1920" height="1200" alt="2026-07-14_10-42-37" src="https://github.com/user-attachments/assets/610309ba-64d2-4894-8d47-bdad357d71e0" />
+<img width="1920" height="1200" alt="2026-07-14_10-43-30" src="https://github.com/user-attachments/assets/117ede49-e2e1-4898-8c86-efb9328a454e" />
+<img width="1920" height="1200" alt="2026-07-14_10-46-50" src="https://github.com/user-attachments/assets/dc38c548-5c55-4f77-b85b-0658d86f3606" />
+<img width="1920" height="1200" alt="2026-07-14_10-49-33" src="https://github.com/user-attachments/assets/b8a0f62b-65dd-4c95-9214-4536d146781c" />
+<img width="1920" height="1200" alt="2026-07-14_10-51-39" src="https://github.com/user-attachments/assets/6b3e12fb-76c6-4ae3-bb75-67f486138df9" />
+<img width="1920" height="1200" alt="2026-07-14_10-52-31" src="https://github.com/user-attachments/assets/e732d7c2-9e6a-40d4-a9ad-0990a858a3f2" />
+<img width="1920" height="1200" alt="2026-07-14_10-55-41" src="https://github.com/user-attachments/assets/523e9093-7d5e-4a6e-887a-7817ed583609" />
+<img width="1920" height="1200" alt="2026-07-14_10-56-37" src="https://github.com/user-attachments/assets/bd6d4bc6-cb59-4560-a74d-5e1a9214d9ce" />
+
 ## ⭐ If You Found This Useful
 
 If this project helped you - whether it saved you time, taught you something, or gave you an idea - please consider leaving a star or a like.
