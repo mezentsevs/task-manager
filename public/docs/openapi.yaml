@@ -18,10 +18,38 @@ security:
   -
     default: []
 paths:
-  /api/register:
+  /api/auth/login:
     post:
       summary: ''
-      operationId: postApiRegister
+      operationId: postApiAuthLogin
+      description: ''
+      parameters: []
+      responses: {}
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: gbailey@example.net
+                password:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: '+-0pBNvYgxwmi/#iw'
+              required:
+                - email
+                - password
+      security: []
+  /api/auth/register:
+    post:
+      summary: ''
+      operationId: postApiAuthRegister
       description: ''
       parameters: []
       responses: {}
@@ -51,38 +79,20 @@ paths:
                 - email
                 - password
       security: []
-  /api/login:
+  /api/auth/logout:
     post:
       summary: ''
-      operationId: postApiLogin
+      operationId: postApiAuthLogout
       description: ''
       parameters: []
       responses: {}
       tags:
         - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
-                  example: gbailey@example.net
-                password:
-                  type: string
-                  description: 'Must not be greater than 255 characters.'
-                  example: '+-0pBNvYgxwmi/#iw'
-              required:
-                - email
-                - password
       security: []
-  /api/me:
+  /api/user:
     get:
       summary: ''
-      operationId: getApiMe
+      operationId: getApiUser
       description: ''
       parameters: []
       responses:
@@ -98,16 +108,6 @@ paths:
                   message:
                     type: string
                     example: Unauthenticated.
-      tags:
-        - Endpoints
-      security: []
-  /api/logout:
-    post:
-      summary: ''
-      operationId: postApiLogout
-      description: ''
-      parameters: []
-      responses: {}
       tags:
         - Endpoints
       security: []
@@ -160,12 +160,12 @@ paths:
                 due_date:
                   type: string
                   description: 'Must be a valid date.'
-                  example: '2026-07-13T14:48:47'
+                  example: '2026-07-14T11:59:14'
                   nullable: true
                 status:
                   type: string
                   description: ''
-                  example: in_progress
+                  example: pending
                   enum:
                     - pending
                     - in_progress
@@ -223,12 +223,12 @@ paths:
                 due_date:
                   type: string
                   description: 'Must be a valid date.'
-                  example: '2026-07-13T14:48:47'
+                  example: '2026-07-14T11:59:15'
                   nullable: true
                 status:
                   type: string
                   description: ''
-                  example: completed
+                  example: pending
                   enum:
                     - pending
                     - in_progress
