@@ -57,7 +57,6 @@ export const useAuthStore = defineStore('auth', {
             try {
                 await axios.post('/auth/logout');
             } catch {
-                // ignore error, consider session already closed
             } finally {
                 this.token = null;
                 this.user = null;
