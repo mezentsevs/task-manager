@@ -29,7 +29,7 @@ Based on tech stack:
 - Secure token-based authentication (Laravel Sanctum API tokens),
 - Role-based access control: admin and regular user (many-to-many roles),
 - Full CRUD for tasks with validation, policies, and service layer,
-- Paginated task list with filtering by status,
+- Paginated task list with filtering by status and sorting by due date and status,
 - Search with debounce (300ms) and query parameter synchronisation,
 - Responsive design with dark/light theme support,
 - Reusable UI component library (buttons, inputs, links, etc.),
