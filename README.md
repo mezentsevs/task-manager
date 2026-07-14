@@ -4,7 +4,7 @@
 
 This is a task manager, written in and for educational and demonstrational purposes.
 
-A full-stack SPA task manager for organising personal tasks with role-based access, real-time search with debounce, filtering, and pagination. Users can register, log in, create tasks, filter, and manage their personal todo list. Administrators have full visibility and control over all tasks. Built with Laravel and Nuxt.
+A full-stack SPA task manager for organising personal tasks with role-based access, real-time search with debounce, filtering, sorting, and pagination. Users can register, log in, and manage their personal todo list. Administrators have full visibility and control over all tasks.
 
 Based on tech stack:
 - [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML),
