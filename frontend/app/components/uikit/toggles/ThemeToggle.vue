@@ -6,14 +6,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import ThemeDarkIcon from '~/components/icons/ThemeDarkIcon.vue';
 import ThemeLightIcon from '~/components/icons/ThemeLightIcon.vue';
 
 const isDark = ref<boolean>(false);
 
+const applyTheme = (dark: boolean): void => {
+    document.documentElement.classList.toggle('dark', dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+};
+
 const toggleTheme = (): void => {
     isDark.value = !isDark.value;
-    document.documentElement.classList.toggle('dark', isDark.value);
+    applyTheme(isDark.value);
 };
+
+onMounted(() => {
+    const savedTheme = localStorage.getItem('theme');
+    isDark.value = savedTheme === 'dark';
+    applyTheme(isDark.value);
+});
 </script>
