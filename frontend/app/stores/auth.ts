@@ -16,7 +16,9 @@ export const useAuthStore = defineStore('auth', {
     }),
     actions: {
         async fetchMe(): Promise<void> {
-            const response = await axios.get<{ user: AuthStateUser & { roles?: string[] } }>('/me');
+            const response = await axios.get<{ user: AuthStateUser & { roles?: string[] } }>(
+                '/user',
+            );
             if (response.data?.user) {
                 this.user = response.data.user;
             }
@@ -25,7 +27,7 @@ export const useAuthStore = defineStore('auth', {
             const response = await axios.post<{
                 token: AuthStateToken;
                 user: AuthStateUser & { roles?: string[] };
-            }>('/login', { email, password });
+            }>('/auth/login', { email, password });
             if (response.data?.token && response.data?.user) {
                 this.token = response.data.token;
                 this.user = response.data.user;
@@ -40,7 +42,7 @@ export const useAuthStore = defineStore('auth', {
             const response = await axios.post<{
                 token: AuthStateToken;
                 user: AuthStateUser & { roles?: string[] };
-            }>('/register', {
+            }>('/auth/register', {
                 name,
                 email,
                 password,
@@ -53,7 +55,7 @@ export const useAuthStore = defineStore('auth', {
         },
         async logout(): Promise<void> {
             try {
-                await axios.post('/logout');
+                await axios.post('/auth/logout');
             } catch {
                 // ignore error, consider session already closed
             } finally {
