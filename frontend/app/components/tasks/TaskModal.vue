@@ -10,7 +10,7 @@
                 <Input id="title" v-model="form.title" v-focus class="mb-4 w-full" required />
 
                 <InputLabel for="description" value="Description" />
-                <Input id="description" v-model="form.description" class="mb-4 w-full" />
+                <Textarea id="description" v-model="form.description" class="mb-4 w-full" />
 
                 <InputLabel for="due_date" value="Due Date" />
                 <Input id="due_date" v-model="form.due_date" type="date" class="mb-4 w-full" />
@@ -43,6 +43,7 @@ import Input from '~/components/uikit/inputs/Input.vue';
 import InputLabel from '~/components/uikit/inputs/partials/InputLabel.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
 import SecondaryButton from '~/components/uikit/buttons/SecondaryButton.vue';
+import Textarea from '~/components/uikit/inputs/Textarea.vue';
 
 import type { Task } from '~/types/TaskTypes';
 

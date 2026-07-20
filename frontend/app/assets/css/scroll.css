@@ -1,0 +1,36 @@
+.custom-scroll-textarea {
+    @apply rounded-md overflow-auto;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+}
+
+.custom-scroll-textarea::-webkit-scrollbar {
+    @apply w-[10px] h-[10px];
+}
+
+.custom-scroll-textarea::-webkit-scrollbar-track {
+    @apply bg-transparent mx-[3px];
+}
+
+.custom-scroll-textarea::-webkit-scrollbar-thumb {
+    @apply bg-gray-400/50 dark:bg-gray-600/50 rounded-[5px] border-2 border-transparent bg-clip-content;
+}
+
+.custom-scroll-textarea::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400/70 dark:bg-gray-600/70;
+}
+
+.dark .custom-scroll-textarea {
+    scrollbar-color: rgba(75, 85, 99, 0.5) transparent;
+}
+
+@supports (-moz-appearance: none) {
+    .custom-scroll-textarea {
+        scrollbar-color: rgba(156, 163, 175, 0.2) transparent;
+    }
+
+    .dark .custom-scroll-textarea {
+        scrollbar-color: rgba(75, 85, 99, 0.2) transparent;
+    }
+}
