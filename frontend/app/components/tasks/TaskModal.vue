@@ -2,10 +2,10 @@
     <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
         <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
             <Heading :level="2" class="text-xl mb-4">
-                {{ isEditing ? 'Edit Task' : 'New Task' }}
+                {{ isViewing ? 'View Task' : isEditing ? 'Edit Task' : 'New Task' }}
             </Heading>
             <ErrorMessage :message="serverError" />
-            <form @submit.prevent="handleSubmit">
+            <form v-if="!isViewing" @submit.prevent="handleSubmit">
                 <InputLabel for="title" value="Title" />
                 <Input id="title" v-model="form.title" v-focus class="mb-4 w-full" required />
 
@@ -30,6 +30,21 @@
                     <PrimaryButton type="submit">Save</PrimaryButton>
                 </div>
             </form>
+            <div v-else class="max-h-[60vh] overflow-y-auto custom-scroll-textarea mb-4">
+                <DetailField label="Title" :value="task?.title" />
+                <DetailField label="Description">
+                    <p class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap break-words">
+                        {{ task?.description || '-' }}
+                    </p>
+                </DetailField>
+                <DetailField label="Due Date" :value="toDateInputFormat(task?.due_date) || '-'" />
+                <DetailField label="Status">
+                    <TaskStatus v-if="task?.status" :status="task.status" />
+                </DetailField>
+            </div>
+            <div v-if="isViewing" class="flex justify-end">
+                <SecondaryButton type="button" @click="$emit('close')">Close</SecondaryButton>
+            </div>
         </div>
     </div>
 </template>
@@ -37,18 +52,21 @@
 <script setup lang="ts">
 import { reactive, computed } from 'vue';
 import { toDateInputFormat } from '~/helpers/DateHelper';
+import DetailField from '~/components/uikit/details/DetailField.vue';
 import ErrorMessage from '~/components/uikit/messages/ErrorMessage.vue';
 import Heading from '~/components/uikit/headings/Heading.vue';
 import Input from '~/components/uikit/inputs/Input.vue';
 import InputLabel from '~/components/uikit/inputs/partials/InputLabel.vue';
 import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
 import SecondaryButton from '~/components/uikit/buttons/SecondaryButton.vue';
+import TaskStatus from '~/components/tasks/TaskStatus.vue';
 import Textarea from '~/components/uikit/inputs/Textarea.vue';
 
 import type { Task } from '~/types/TaskTypes';
 
 const props = defineProps<{
     task: Task | null;
+    isViewing?: boolean;
     serverError: string;
 }>();
 
@@ -57,7 +75,7 @@ const emit = defineEmits<{
     save: [data: { title: string; description?: string; due_date?: string; status: string }];
 }>();
 
-const isEditing = computed<boolean>(() => props.task !== null);
+const isEditing = computed<boolean>((): boolean => props.task !== null && !props.isViewing);
 
 const form = reactive<{
     title: string;

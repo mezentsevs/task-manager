@@ -96,17 +96,18 @@
                             {{ task.title }}
                         </td>
                         <td class="px-6 py-4 text-sm">
-                            <span
-                                class="rounded-full px-2 py-1 text-xs font-semibold"
-                                :class="statusClass(task.status)">
-                                {{ task.status }}
-                            </span>
+                            <TaskStatus :status="task.status" />
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
                             {{ toDateInputFormat(task.due_date) || '-' }}
                         </td>
                         <td class="px-6 py-4 text-sm">
                             <div class="flex gap-2">
+                                <button
+                                    class="text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+                                    @click="openViewModal(task)">
+                                    View
+                                </button>
                                 <button
                                     v-if="canEdit(task)"
                                     class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
@@ -145,7 +146,8 @@
 
         <TaskModal
             v-if="showModal"
-            :task="editingTask"
+            :task="selectedTask"
+            :is-viewing="isViewing"
             :server-error="serverError"
             @close="closeModal"
             @save="handleSave" />
@@ -168,25 +170,28 @@ import PrimaryButton from '~/components/uikit/buttons/PrimaryButton.vue';
 import SortAscIcon from '~/components/icons/SortAscIcon.vue';
 import SortDescIcon from '~/components/icons/SortDescIcon.vue';
 import TaskModal from '~/components/tasks/TaskModal.vue';
+import TaskStatus from '~/components/tasks/TaskStatus.vue';
 
 import type { Task, TaskFilters } from '~/types/TaskTypes';
 
-const taskStore = useTaskStore();
-const authStore = useAuthStore();
-const router = useRouter();
 const route = useRoute();
+const router = useRouter();
+
+const authStore = useAuthStore();
+const taskStore = useTaskStore();
 
 const { tasks, meta, loading, error } = storeToRefs(taskStore);
 
+const isViewing = ref<boolean>(false);
 const searchQuery = ref<string>((route.query.search as string) || '');
+const selectedTask = ref<Task | null>(null);
+const serverError = ref<string>('');
+const showModal = ref<boolean>(false);
+const sortBy = ref<SortField>(SortField.CreatedAt);
+const sortOrder = ref<SortOrder>(SortOrder.Desc);
 const statusFilter = ref<TaskFilters['status']>(
     (route.query.status as TaskFilters['status']) || '',
 );
-const showModal = ref<boolean>(false);
-const editingTask = ref<Task | null>(null);
-const serverError = ref<string>('');
-const sortBy = ref<SortField>(SortField.CreatedAt);
-const sortOrder = ref<SortOrder>(SortOrder.Desc);
 
 const fetchTasks = async (page?: number): Promise<void> => {
     const filters: TaskFilters = {
@@ -230,21 +235,31 @@ const toggleSort = (field: SortField): void => {
 };
 
 const openCreateModal = (): void => {
-    editingTask.value = null;
-    serverError.value = '';
+    selectedTask.value = null;
     showModal.value = true;
+    isViewing.value = false;
+    serverError.value = '';
 };
 
 const openEditModal = (task: Task): void => {
-    editingTask.value = { ...task };
-    serverError.value = '';
+    selectedTask.value = { ...task };
     showModal.value = true;
+    isViewing.value = false;
+    serverError.value = '';
+};
+
+const openViewModal = (task: Task): void => {
+    selectedTask.value = { ...task };
+    showModal.value = true;
+    isViewing.value = true;
+    serverError.value = '';
 };
 
 const closeModal = (): void => {
-    editingTask.value = null;
-    serverError.value = '';
+    selectedTask.value = null;
     showModal.value = false;
+    isViewing.value = false;
+    serverError.value = '';
 };
 
 const handleSave = async (taskData: {
@@ -254,8 +269,8 @@ const handleSave = async (taskData: {
     status: string;
 }): Promise<void> => {
     try {
-        if (editingTask.value) {
-            await taskStore.updateTask(editingTask.value.id, taskData);
+        if (selectedTask.value) {
+            await taskStore.updateTask(selectedTask.value.id, taskData);
         } else {
             await taskStore.createTask(taskData);
         }
@@ -296,19 +311,6 @@ const canDelete = (task: Task): boolean => {
     return (
         authStore.user?.id === task.user_id || (authStore.user?.roles?.includes('admin') ?? false)
     );
-};
-
-const statusClass = (status: string): string => {
-    switch (status) {
-        case 'pending':
-            return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-        case 'in_progress':
-            return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
-        case 'completed':
-            return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-        default:
-            return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
-    }
 };
 
 onMounted(() => {
